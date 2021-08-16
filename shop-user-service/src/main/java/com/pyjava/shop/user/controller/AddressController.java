@@ -2,8 +2,6 @@ package com.pyjava.shop.user.controller;
 
 
 import com.pyjava.shop.entity.Result;
-import com.pyjava.shop.enums.ResultCode;
-import com.pyjava.shop.exception.BizException;
 import com.pyjava.shop.user.model.AddressDO;
 import com.pyjava.shop.user.service.AddressService;
 import io.swagger.annotations.Api;
@@ -37,11 +35,7 @@ public class AddressController {
             @ApiParam(value = "地址id", required = true) @PathVariable("addressId") long addressId
     ) {
         AddressDO address = addressService.findAddress(addressId);
-        if(addressId == 1){
-            throw new BizException(ResultCode.INNER_EXCEPTION);
-        }else{
-            return Result.ofSuccess(address);
-        }
+        return Result.ofSuccess(address);
     }
 
 }
