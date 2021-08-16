@@ -1,21 +1,19 @@
 package com.pyjava.shop.entity;
 
 import com.pyjava.shop.enums.ResultCode;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * <p>描述: [功能描述] </p>
  *
  * @author zhaojj11
  * @version v1.0
- * @date 2021/8/16 11:06
+ * @since 2021/8/16
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Result {
+public class Result<T> implements Serializable {
     /**
      * 状态码
      */
@@ -27,12 +25,19 @@ public class Result {
     /**
      * 数据
      */
-    private Object data;
-
+    private T data;
     /**
      * 时间
      */
     private Long timestamp;
+
+    public Result(Integer code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+        this.timestamp = System.currentTimeMillis();
+    }
+
     /**
      * {@link Result} 构建器
      *
@@ -41,8 +46,8 @@ public class Result {
      * @param data    数据
      * @return {@link Result} 统一返回结果
      */
-    public static Result of(Integer code, String message, Object data) {
-        return new Result(code, message, data, System.currentTimeMillis());
+    public static <T> Result<T> of(Integer code, String message, T data) {
+        return new Result<>(code, message, data);
     }
 
     /**
@@ -51,7 +56,7 @@ public class Result {
      * @param resultCode {@link ResultCode} 状态码枚举类
      * @return {@link Result} 统一返回结果
      */
-    public static Result of(ResultCode resultCode) {
+    public static <T> Result<T> of(ResultCode resultCode) {
         return Result.of(resultCode.getCode(), resultCode.getMessage(), null);
     }
 
@@ -62,7 +67,7 @@ public class Result {
      * @param data       数据
      * @return {@link Result} 统一返回结果
      */
-    public static Result of(ResultCode resultCode, Object data) {
+    public static <T> Result<T> of(ResultCode resultCode, T data) {
         return Result.of(resultCode.getCode(), resultCode.getMessage(), data);
     }
 
@@ -72,7 +77,7 @@ public class Result {
      *
      * @return {@link Result} 统一返回结果
      */
-    public static Result ofSuccess() {
+    public static <T> Result<T> ofSuccess() {
         return Result.of(ResultCode.SUCCESS, null);
     }
 
@@ -82,7 +87,7 @@ public class Result {
      * @param object 数据
      * @return {@link Result} 统一返回结果
      */
-    public static Result ofSuccess(Object object) {
+    public static <T> Result<T> ofSuccess(T object) {
         return Result.of(ResultCode.SUCCESS, object);
     }
 
@@ -92,8 +97,7 @@ public class Result {
      * @param resultCode {@link ResultCode} 状态码枚举类
      * @return {@link Result} 统一返回结果
      */
-    public static Result ofFailure(ResultCode resultCode) {
+    public static <T> Result<T> ofFailure(ResultCode resultCode) {
         return Result.of(resultCode);
     }
 }
-

@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
  *
  * @author zhaojj11
  * @version v1.0
- * @date 2021/8/16 11:03
+ * @since 2021/8/16
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

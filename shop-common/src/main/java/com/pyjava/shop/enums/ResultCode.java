@@ -7,7 +7,7 @@ import lombok.Getter;
  *
  * @author zhaojj11
  * @version v1.0
- * @date 2021/8/16 11:03
+ * @since 2021/8/16
  */
 public enum ResultCode {
     /**
@@ -36,10 +36,10 @@ public enum ResultCode {
     ACCOUNT_PWD_ERROR(250003, "账号或者密码错误");
 
     @Getter
-    private String message;
+    private final String message;
 
     @Getter
-    private int code;
+    private final int code;
 
     ResultCode(int code, String message) {
         this.code = code;

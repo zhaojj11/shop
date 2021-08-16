@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author zhaojj11
  * @version v1.0
- * @date 2021/8/16 11:04
+ * @since 2021/8/16
  */
 @ControllerAdvice
 @Slf4j
@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public Result exceptionHandler(Exception e) {
+    public Result<Object> exceptionHandler(Exception e) {
         if (e instanceof BizException) {
             BizException bizException = (BizException) e;
             log.error("[业务异常 {0}]", e);

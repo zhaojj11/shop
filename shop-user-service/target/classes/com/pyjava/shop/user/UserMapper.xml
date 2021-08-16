@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pyjava.shop.user.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pyjava.shop.user.model.UserDO">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="password" property="password" />
+        <result column="avatar" property="avatar" />
+        <result column="slogan" property="slogan" />
+        <result column="sex" property="sex" />
+        <result column="points" property="points" />
+        <result column="create_time" property="createTime" />
+        <result column="email" property="email" />
+        <result column="salt" property="salt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, password, avatar, slogan, sex, points, create_time, email, salt
+    </sql>
+
+</mapper>
