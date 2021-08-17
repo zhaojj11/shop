@@ -9,7 +9,7 @@ import com.pyjava.shop.user.model.AddressDO;
  * </p>
  *
  * @author zhaojj11
- * @since 2021-08-16
+ * @since 1.0
  */
 public interface AddressService extends IService<AddressDO> {
     /**

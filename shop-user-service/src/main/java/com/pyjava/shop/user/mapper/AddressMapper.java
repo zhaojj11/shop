@@ -5,12 +5,10 @@ import com.pyjava.shop.user.model.AddressDO;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>
- * 电商-公司收发货地址表 Mapper 接口
- * </p>
+ * <p>地址表 Mapper 接口</p>
  *
  * @author zhaojj11
- * @since 2021-08-16
+ * @since 1.0
  */
 @Component
 public interface AddressMapper extends BaseMapper<AddressDO> {

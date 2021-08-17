@@ -6,11 +6,10 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * <p>描述: [功能描述] </p>
+ * <p>描述: 统一返回结果 </p>
  *
  * @author zhaojj11
- * @version v1.0
- * @since 2021/8/16
+ * @since 1.0
  */
 @Data
 public class Result<T> implements Serializable {
@@ -70,7 +69,6 @@ public class Result<T> implements Serializable {
     public static <T> Result<T> of(ResultCode resultCode, T data) {
         return Result.of(resultCode.getCode(), resultCode.getMessage(), data);
     }
-
 
     /**
      * 成功

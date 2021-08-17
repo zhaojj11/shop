@@ -4,6 +4,8 @@ import com.pyjava.shop.util.Constants;
 import lombok.Getter;
 import lombok.Setter;
 
+import static com.pyjava.shop.util.Constants.Mark.COLON;
+
 /**
  * <p>描述: 统一Redis Key管理</p>
  * 在使用是请通过
@@ -20,24 +22,24 @@ public enum RedisKey {
 
     /**
      * 图形验证码 redis key 格式如下
-     * key为 user:captcha:%d
+     * key为 user:captcha:%s
      * 值为  xx
      */
-    CAPTCHA_CODE("user", "captcha", "%s", Constants.Validity.CAPTCHA_CODE_EXPIRED),
+    CAPTCHA_CODE("user", "captcha", "%s", Constants.Validity.CAPTCHA_CODE_EXPIRED);
 
-    EMAIL_CODE("user", SendCodeEnum.USER_REGISTER.toString(), "%s", Constants.Validity.CAPTCHA_CODE_EXPIRED);
     /**
      * redis key 所属模块
      */
     private final String module;
     /**
+     * redis key 功能名称
+     */
+    private final String func;
+    /**
      * redis key 前缀
      */
-    private final String prefix;
-    /**
-     * redis key后半段值
-     */
     private final String value;
+
     /**
      * 有效期
      */
@@ -45,19 +47,21 @@ public enum RedisKey {
     @Getter
     private Long time;
 
-    RedisKey(String module, String prefix, String value, Long time) {
+    RedisKey(String module, String func, String value, Long time) {
         this.module = module;
-        this.prefix = prefix;
+        this.func = func;
         this.value = value;
         this.time = time;
     }
 
     /**
-     * 获取key
+     * <p>描述: 获取key</p>
      *
-     * @return key xxx:xxx:%s
+     * @return {@link java.lang.String} key module:func:value
+     * @author zhaojj11
+     * @since 1.0
      */
     public String getKey() {
-        return this.module + Constants.Mark.COLON + this.prefix + Constants.Mark.COLON + this.value;
+        return this.module + COLON + this.func + COLON + this.value;
     }
 }

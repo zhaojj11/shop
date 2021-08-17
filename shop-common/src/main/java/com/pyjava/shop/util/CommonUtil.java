@@ -9,31 +9,35 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Random;
 
+import static com.pyjava.shop.util.Constants.Request.Headers.*;
+
 
 /**
- * <p>描述: [功能描述] </p>
+ * <p>描述: 通用工具 </p>
  *
  * @author zhaojj11
- * @version v1.0
- * @date 2021/4/20 1:16
+ * @since 1.0
  */
 @Slf4j
 public class CommonUtil {
+
     /**
-     * 获取ip
+     * <p>描述: 获取ip </p>
      *
      * @param request 请求
-     * @return IP地址
+     * @return java.lang.String IP地址
+     * @author zhaojj11
+     * @since 1.0
      */
     public static String getIpAddr(HttpServletRequest request) {
         String ipAddress;
         try {
-            ipAddress = request.getHeader("x-forwarded-for");
+            ipAddress = request.getHeader(X_FORWARDED_FOR);
             if (ipAddress == null || ipAddress.length() == 0 || Constants.Common.UNKNOWN.equalsIgnoreCase(ipAddress)) {
-                ipAddress = request.getHeader("Proxy-Client-IP");
+                ipAddress = request.getHeader(PROXY_CLIENT_IP);
             }
             if (ipAddress == null || ipAddress.length() == 0 || Constants.Common.UNKNOWN.equalsIgnoreCase(ipAddress)) {
-                ipAddress = request.getHeader("WL-Proxy-Client-IP");
+                ipAddress = request.getHeader(WL_PROXY_CLIENT_IP);
             }
             if (ipAddress == null || ipAddress.length() == 0 || Constants.Common.UNKNOWN.equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getRemoteAddr();
@@ -52,7 +56,6 @@ public class CommonUtil {
             // "***.***.***.***".length()
             // = 15
             if (ipAddress != null && ipAddress.length() > Constants.Number.FIFTEEN) {
-
                 if (ipAddress.indexOf(Constants.Mark.COMMA) > 0) {
                     ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
                 }
@@ -64,12 +67,13 @@ public class CommonUtil {
         return ipAddress;
     }
 
-
     /**
-     * md5加密
+     * <p>描述: md5加密</p>
      *
      * @param data 字符串
-     * @return md5加密后字符串
+     * @return java.lang.String md5加密后字符串
+     * @author zhaojj11
+     * @since 1.0
      */
     public static String md5(String data) {
         try {

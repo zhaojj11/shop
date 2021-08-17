@@ -5,11 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * <p>描述: [功能描述] </p>
+ * <p>描述: 用户服务启动类 </p>
  *
  * @author zhaojj11
- * @version v1.0
- * @since 2021/4/15
+ * @since 1.0
  */
 @SpringBootApplication(scanBasePackages = "com.pyjava.shop")
 @MapperScan("com.pyjava.shop.user.mapper")

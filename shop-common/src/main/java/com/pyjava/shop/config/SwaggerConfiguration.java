@@ -18,8 +18,7 @@ import java.util.List;
  * <p>描述: swagger 配置类 </p>
  *
  * @author zhaojj11
- * @version v1.0
- * @since 2021/8/16
+ * @since 1.0
  */
 @Component
 @Data

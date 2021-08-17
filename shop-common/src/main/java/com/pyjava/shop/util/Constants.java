@@ -4,8 +4,7 @@ package com.pyjava.shop.util;
  * <p>描述: [功能描述] </p>
  *
  * @author zhaojj11
- * @version v1.0
- * @date 2021/4/20 12:31
+ * @date 1.0
  */
 public class Constants {
     public static final String MD5 = "MD5";
@@ -28,5 +27,14 @@ public class Constants {
     }
     public interface Number{
         Integer FIFTEEN = 15;
+    }
+
+    public interface Request{
+        interface Headers{
+            String X_FORWARDED_FOR = "x-forwarded-for";
+            String PROXY_CLIENT_IP = "Proxy-Client-IP";
+            String WL_PROXY_CLIENT_IP = "WL-Proxy-Client-IP";
+            String USER_AGENT = "User-Agent";
+        }
     }
 }

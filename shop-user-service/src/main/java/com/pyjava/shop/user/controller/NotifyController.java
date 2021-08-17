@@ -2,8 +2,8 @@ package com.pyjava.shop.user.controller;
 
 import com.google.code.kaptcha.Producer;
 import com.pyjava.shop.enums.RedisKey;
+import com.pyjava.shop.redis.RedisKeyBuilder;
 import com.pyjava.shop.util.CommonUtil;
-import com.pyjava.shop.util.Constants;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import static com.pyjava.shop.util.Constants.Request.Headers.USER_AGENT;
+
 /**
  * <p>描述: [功能描述] </p>
  *
  * @author zhaojj11
- * @version v1.0
- * @since 2021/8/16
+ * @since 1.0
  */
 @Api(tags = "通知模块")
 @RestController
@@ -41,13 +42,21 @@ public class NotifyController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    /**
+     * <p>描述: 获取图形验证码接口 </p>
+     * @param request 请求
+     * @param response 响应
+     * @author zhaojj11
+     * @since 1.0
+     */
     @GetMapping("captcha")
     public void getCaptcha(HttpServletRequest request, HttpServletResponse response) {
         String captcha = captchaProducer.createText();
         log.info("图形验证码" + captcha);
 
         // 存储
-        redisTemplate.opsForValue().set(getCaptchaKey(request), captcha, Constants.Validity.CAPTCHA_CODE_EXPIRED, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(getCaptchaKey(request),
+                captcha, RedisKey.CAPTCHA_CODE.getTime(), TimeUnit.MILLISECONDS);
 
         BufferedImage image = captchaProducer.createImage(captcha);
         ServletOutputStream outputStream;
@@ -74,8 +83,8 @@ public class NotifyController {
      */
     private String getCaptchaKey(HttpServletRequest request) {
         String ip = CommonUtil.getIpAddr(request);
-        String userAgent = request.getHeader("User-Agent");
-        String key = String.format(RedisKey.CAPTCHA_CODE.getKey(), CommonUtil.md5(ip + userAgent));
+        String userAgent = request.getHeader(USER_AGENT);
+        String key = RedisKeyBuilder.build(RedisKey.CAPTCHA_CODE, CommonUtil.md5(ip + userAgent));
         log.info("ip-{},userAgent-{},key-{}", ip, userAgent, key);
         return key;
     }

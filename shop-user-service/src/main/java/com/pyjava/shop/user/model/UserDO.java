@@ -15,7 +15,7 @@ import java.util.Date;
  * </p>
  *
  * @author zhaojj11
- * @since 2021-08-16
+ * @since 1.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -24,7 +24,7 @@ public class UserDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**

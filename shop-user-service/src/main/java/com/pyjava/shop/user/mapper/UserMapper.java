@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * </p>
  *
  * @author zhaojj11
- * @since 2021-08-16
+ * @since 1.0
  */
 @Component
 public interface UserMapper extends BaseMapper<UserDO> {

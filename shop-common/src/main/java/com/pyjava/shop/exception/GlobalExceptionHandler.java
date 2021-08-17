@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * <p>描述: [功能描述] </p>
+ * <p>描述: 全局异常返回 </p>
  *
  * @author zhaojj11
- * @version v1.0
- * @since 2021/8/16
+ * @since 1.0
  */
 @ControllerAdvice
 @Slf4j

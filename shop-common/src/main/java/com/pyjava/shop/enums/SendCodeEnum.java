@@ -5,7 +5,7 @@ package com.pyjava.shop.enums;
  *
  * @author zhaojj11
  * @version v1.0
- * @date 2021/4/21 1:12
+ * @date 1.0
  */
 public enum SendCodeEnum {
     /**

@@ -3,11 +3,10 @@ package com.pyjava.shop.enums;
 import lombok.Getter;
 
 /**
- * <p>描述: [功能描述] </p>
+ * <p>描述: 返回码 </p>
  *
  * @author zhaojj11
- * @version v1.0
- * @since 2021/8/16
+ * @since 1.0
  */
 public enum ResultCode {
     /**
