@@ -25,7 +25,8 @@ public enum RedisKey {
      * key为 user:captcha:%s
      * 值为  xx
      */
-    CAPTCHA_CODE("user", "captcha", "%s", Constants.Validity.CAPTCHA_CODE_EXPIRED);
+    CAPTCHA_CODE("user", "captcha", "%s", Constants.Validity.CAPTCHA_CODE_EXPIRED),
+    EMAIL_CODE("user", "user_register", "%s", Constants.Validity.CAPTCHA_CODE_EXPIRED);
 
     /**
      * redis key 所属模块

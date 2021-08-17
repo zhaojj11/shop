@@ -36,7 +36,7 @@ public class SwaggerConfiguration {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.pyjava.shop"))
                 // 正则匹配请求路径,并分配当前分组
-                .paths(PathSelectors.ant("api/**"))
+                .paths(PathSelectors.ant("/api/**"))
                 .build()
                 .globalRequestParameters(globalRequestParameters())
                 .globalResponses(HttpMethod.GET, getGlobalResponseMessage());
@@ -54,7 +54,7 @@ public class SwaggerConfiguration {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.pyjava.shop"))
                 // 正则匹配请求路径,并分配当前分组
-                .paths(PathSelectors.ant("admin/**"))
+                .paths(PathSelectors.ant("/admin/**"))
                 .build();
 
     }

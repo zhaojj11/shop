@@ -1,16 +1,24 @@
 package com.pyjava.shop.user.controller;
 
 import com.google.code.kaptcha.Producer;
+import com.pyjava.shop.entity.Result;
 import com.pyjava.shop.enums.RedisKey;
+import com.pyjava.shop.enums.ResultCode;
+import com.pyjava.shop.enums.SendCodeEnum;
 import com.pyjava.shop.redis.RedisKeyBuilder;
+import com.pyjava.shop.user.component.MailService;
+import com.pyjava.shop.user.service.NotifyService;
 import com.pyjava.shop.util.CommonUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
@@ -38,6 +46,10 @@ public class NotifyController {
     @Autowired
     @Qualifier("captchaProducer")
     private Producer captchaProducer;
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private NotifyService notifyService;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -73,6 +85,36 @@ public class NotifyController {
             e.printStackTrace();
             log.error("获取验证码异常: {}", e.getMessage());
         }
+    }
+
+    /**
+     * 支持邮箱发送验证码
+     *
+     * @param to 用户邮箱
+     * @param captcha 图形验证码
+     * @param request 请求
+     * @return 统一返回结果
+     * @author zhaojj11
+     * @since 1.0
+     */
+    @ApiOperation("发送验证码")
+    @GetMapping("sendEmailCode")
+    public Result<Object> sendRegisterCode(
+            @ApiParam("收信人") @RequestParam(value = "to") String to,
+            @ApiParam("验证码") @RequestParam(value = "captcha") String captcha,
+            HttpServletRequest request
+    ) {
+
+        String key = getCaptchaKey(request);
+        String cacheCaptcha = redisTemplate.opsForValue().get(key);
+
+        if (cacheCaptcha != null && cacheCaptcha.equalsIgnoreCase(captcha)) {
+            redisTemplate.delete(key);
+            return notifyService.sendCode(SendCodeEnum.USER_REGISTER, to);
+        } else {
+            return Result.ofFailure(ResultCode.CODE_CAPTCHA);
+        }
+
     }
 
     /**
